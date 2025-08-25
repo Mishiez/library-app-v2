@@ -16,22 +16,54 @@ function addBookToLibrary(title, author, pages ,read,id) {
     return myLibrary.push(book);
 }
 
-addBookToLibrary("GOT", "G T", 23, true);
+function addToHTML() {
+  const table = document.querySelector('tbody');
+  myLibrary.forEach((book) => {
+    table.innerHTML = table.innerHTML + 
+        `<tr>
+            <td>${book.title}</td>
+            <td>${book.author}</td>
+            <td>${book.pages}</td>
+            <td>${book.read}</td>
+         </tr>`
+})
+}
+
+const showButton = document.getElementById("showDialog");
+const favDialog = document.getElementById("favDialog");
+const outputBox = document.querySelector("output");
+const selectEl = favDialog.querySelector("input");
+const confirmBtn = favDialog.querySelector("#confirmBtn");
+
+// "Show the dialog" button opens the <dialog> modally
+showButton.addEventListener("click", () => {
+  favDialog.showModal();
+});
+
+// "Cancel" button closes the dialog without submitting because of [formmethod="dialog"], triggering a close event.
+favDialog.addEventListener("close", (e) => {
+  outputBox.value =
+    favDialog.returnValue === "default"
+      ? "No return value."
+      : `ReturnValue: ${favDialog.returnValue}.`; // Have to check for "default" rather than empty string
+});
+
+// Prevent the "confirm" button from the default behavior of submitting the form, and close the dialog with the `close()` method, which triggers the "close" event.
+confirmBtn.addEventListener("click", (event) => {
+  event.preventDefault(); // We don't want to submit this fake form
+  let jsTitleInput = document.getElementById('titleInput').value;
+  let jsAuthorInput = document.getElementById('authorInput').value;
+  let jsPagesInput = document.getElementById('pagesInput').value;
+  var checkedValue = document.querySelector('.bookStatus:checked').value;
+  favDialog.close(
+    addBookToLibrary(jsTitleInput, jsAuthorInput, jsPagesInput, checkedValue)
+  );
+  addToHTML();
+});
+
+
+addBookToLibrary("GOT", "G T", 23, true)
 addBookToLibrary("CHL", "A M", 56, false);
 addBookToLibrary("GO", "G ", 23, true);
 addBookToLibrary("CH", "A ", 56, false);
 console.log(myLibrary)
-
-
-
-
-//************//
-// normally this is what I would have done
-// Book.prototype.info = function() {
-//     return `${this.title}, ${this.title},${this.pages}, ${this.read}`
-// }
-
-// const book1 = new Book("GOT", "G T", 23, true);
-// console.log(book1.info());
-
-

@@ -4,10 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
     <title>Library</title>
 </head>
 <body>
     <h1>LIBRARY APP</h1>
+    <div class="main-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Pages</th>
+                    <th>Read</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <dialog id="favDialog">
+        <form action="">
+            <p>
+                <label for="title">Title of the book:</label><br>
+                <input type="text" id="titleInput" name="title">
+            </p>
+            <p>
+                <label for="author">Authorof the book:</label><br>
+                <input type="text" id="authorInput" name="author">
+            </p>
+            <p>
+                <label for="title">Number of Pages:</label><br>
+                <input type="number" id="pagesInput" name="pages">
+            </p>
+            <p>
+                <p>Have you read the book?</p>
+                <input type="checkbox" class="bookStatus" name="status" value="yes">
+                <label for="bookStatus"> Yes</label><br>
+                <input type="checkbox" class="bookStatus" name="status" value="Car">
+                <label for="bookStatus"> No</label><br>
+            </p>
+            <div>
+                <button value="cancel" formmethod="dialog">Cancel</button>
+                <button id="confirmBtn" value="default">Confirm</button>
+            </div>
+        </form>
+    </dialog>
+    <p>
+        <button id="showDialog">New Book</button>
+    </p>
+    <output></output>
+
+       
 </body>
-</html>
+</html> 
+ 
