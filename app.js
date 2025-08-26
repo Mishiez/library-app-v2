@@ -18,6 +18,9 @@ function addBookToLibrary(title, author, pages ,read,id) {
 
 function addToHTML() {
   const table = document.querySelector('tbody');
+  while(table.rows.length > 0) {
+    table.deleteRow(0);
+  }
   myLibrary.forEach((book) => {
     table.innerHTML = table.innerHTML + 
         `<tr>
@@ -62,8 +65,11 @@ confirmBtn.addEventListener("click", (event) => {
 });
 
 
-addBookToLibrary("GOT", "G T", 23, true)
+addBookToLibrary("GOT", "G T", 23, true);
 addBookToLibrary("CHL", "A M", 56, false);
 addBookToLibrary("GO", "G ", 23, true);
 addBookToLibrary("CH", "A ", 56, false);
+
+addToHTML()
+
 console.log(myLibrary)
