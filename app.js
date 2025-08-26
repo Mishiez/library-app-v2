@@ -28,6 +28,9 @@ function addToHTML() {
             <td>${book.author}</td>
             <td>${book.pages}</td>
             <td>${book.read}</td>
+            <td>
+              <button onclick = "remBook(${Object.id})" >Delete</button>
+            </td>
          </tr>`
 })
 }
@@ -64,6 +67,16 @@ confirmBtn.addEventListener("click", (event) => {
   addToHTML();
 });
 
+function remBook(bookId) {
+  //const id = this.parentElement.classList[1];
+
+  const findBook = myLibrary.findIndex(
+    (element) => element.id === bookId
+  );
+  //const delBook = myLibrary.splice(findBook, 1);
+  myLibrary.splice(findBook,1);
+  addToHTML();
+}
 
 addBookToLibrary("GOT", "G T", 23, true);
 addBookToLibrary("CHL", "A M", 56, false);
