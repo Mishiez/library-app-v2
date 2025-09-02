@@ -27,16 +27,18 @@ function addToHTML() {
             <td>${book.title}</td>
             <td>${book.author}</td>
             <td>${book.pages}</td>
-            <td>${book.read}</td>
             <td>
-              <button onclick = "remBook(${Object.id})" >Delete</button>
+              <button onclick = "toggleStatus(${myLibrary.indexOf(book)})" >${book.read}</button>
+            </td>
+            <td>
+              <button onclick = "remBook(${myLibrary.indexOf(book)}, ${table.row})" >Delete</button>
             </td>
          </tr>`
 })
 }
 
-const showButton = document.getElementById("showDialog");
-const favDialog = document.getElementById("favDialog");
+const showButton = document.getElementById("newBookButton");
+const favDialog = document.getElementById("newBookForm");
 const outputBox = document.querySelector("output");
 const selectEl = favDialog.querySelector("input");
 const confirmBtn = favDialog.querySelector("#confirmBtn");
@@ -60,23 +62,72 @@ confirmBtn.addEventListener("click", (event) => {
   let jsTitleInput = document.getElementById('titleInput').value;
   let jsAuthorInput = document.getElementById('authorInput').value;
   let jsPagesInput = document.getElementById('pagesInput').value;
-  var checkedValue = document.querySelector('.bookStatus:checked').value;
+  var checkedValue = document.getElementById('checkboxForm').checked;
   favDialog.close(
     addBookToLibrary(jsTitleInput, jsAuthorInput, jsPagesInput, checkedValue)
   );
   addToHTML();
 });
 
-function remBook(bookId) {
-  //const id = this.parentElement.classList[1];
+// function remBook(bookId) {
+//   //const id = this.parentElement.classList[1];
 
-  const findBook = myLibrary.findIndex(
-    (element) => element.id === bookId
-  );
-  //const delBook = myLibrary.splice(findBook, 1);
-  myLibrary.splice(findBook,1);
+//   const findBook = myLibrary.findIndex(
+//     (element) => element.id === bookId
+//   );
+//   console.log(findBook);
+//   //const delBook = myLibrary.splice(findBook, 1);
+//   myLibrary.splice(findBook,1);
+//   addToHTML();
+// }
+
+function remBook(bookIndex, row) {
+  myLibrary.splice(bookIndex,1);
+  console.log(bookIndex);
   addToHTML();
 }
+
+function toggleStatus(bookIndex) {
+  //const id = this.parentElement.classList[1];
+
+  // const findBook = myLibrary.findIndex(
+  //   (findBook) => findBook.id == bookId
+  // );
+  // //const delBook = myLibrary.splice(findBook, 1);
+  // var isSelected = findBook.read; 
+  // // state.users.forEach(user => user.selected = false ); deselect others 
+  // findBook.read = !isSelected;
+  // addToHTML();
+  console.log(bookIndex);
+  // if(findBook.read  == true){
+  //   findBook.read = false;
+  // }
+  // else{
+  //   findBook.read = true;
+  // }
+  
+   myLibrary[myLibrary.indexOf(bookIndex)].read = true ? false : true;
+  addToHTML();
+}
+
+
+
+// function toggleCheck(checkedValue, valuesArr) {
+
+//   let midArray = [...valuesArr];
+
+//   return midArray.map( (module) => {
+//     return module.map( (values)=>{
+//       return {
+//         ...values,
+//         selected: values.name === checkedValue.name ? !values.selected : values.selected
+//       }
+//     })
+//   }
+//   )
+// }
+
+
 
 addBookToLibrary("GOT", "G T", 23, true);
 addBookToLibrary("CHL", "A M", 56, false);
