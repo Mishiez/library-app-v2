@@ -28,7 +28,7 @@ function addToHTML() {
             <td>${book.author}</td>
             <td>${book.pages}</td>
             <td>
-              <button onclick = "toggleStatus(${myLibrary.indexOf(book)})" >${book.read}</button>
+              <button onclick = "toggleStatus(${myLibrary.indexOf(book)}, this)" >${book.read}</button>
             </td>
             <td>
               <button onclick = "remBook(${myLibrary.indexOf(book)}, ${table.row})" >Delete</button>
@@ -36,6 +36,7 @@ function addToHTML() {
          </tr>`
 })
 }
+
 
 const showButton = document.getElementById("newBookButton");
 const favDialog = document.getElementById("newBookForm");
@@ -69,65 +70,21 @@ confirmBtn.addEventListener("click", (event) => {
   addToHTML();
 });
 
-// function remBook(bookId) {
-//   //const id = this.parentElement.classList[1];
-
-//   const findBook = myLibrary.findIndex(
-//     (element) => element.id === bookId
-//   );
-//   console.log(findBook);
-//   //const delBook = myLibrary.splice(findBook, 1);
-//   myLibrary.splice(findBook,1);
-//   addToHTML();
-// }
 
 function remBook(bookIndex, row) {
   myLibrary.splice(bookIndex,1);
-  console.log(bookIndex);
+  // console.log(bookIndex);
   addToHTML();
 }
 
-function toggleStatus(bookIndex) {
-  //const id = this.parentElement.classList[1];
-
-  // const findBook = myLibrary.findIndex(
-  //   (findBook) => findBook.id == bookId
-  // );
-  // //const delBook = myLibrary.splice(findBook, 1);
-  // var isSelected = findBook.read; 
-  // // state.users.forEach(user => user.selected = false ); deselect others 
-  // findBook.read = !isSelected;
-  // addToHTML();
-  console.log(bookIndex);
-  // if(findBook.read  == true){
-  //   findBook.read = false;
-  // }
-  // else{
-  //   findBook.read = true;
-  // }
-  
-   myLibrary[myLibrary.indexOf(bookIndex)].read = true ? false : true;
-  addToHTML();
+function toggleStatus(bookIndex, e) {
+  // console.log(ix)
+  // console.log(myLibrary[ix])
+  // console.log(myLibrary[ix].read)
+  const currentStatus = myLibrary[bookIndex].read
+  myLibrary[bookIndex].read= !currentStatus
+  e.innerHTML = myLibrary[bookIndex].read;
 }
-
-
-
-// function toggleCheck(checkedValue, valuesArr) {
-
-//   let midArray = [...valuesArr];
-
-//   return midArray.map( (module) => {
-//     return module.map( (values)=>{
-//       return {
-//         ...values,
-//         selected: values.name === checkedValue.name ? !values.selected : values.selected
-//       }
-//     })
-//   }
-//   )
-// }
-
-
 
 addBookToLibrary("GOT", "G T", 23, true);
 addBookToLibrary("CHL", "A M", 56, false);
